@@ -4,6 +4,7 @@ from .models import Newsletter
 from subscribers.models import Subscriber
 from services.crew_service.crew import DefenseNewsKoreanDailyDigestCrew
 from services.email_service import send_newsletter_email
+from django.template.loader import render_to_string
 import markdown
 
 @shared_task
@@ -55,12 +56,15 @@ def distribute_newsletter_task(newsletter_id):
         newsletter = Newsletter.objects.get(id=newsletter_id)
         subscribers = Subscriber.objects.filter(is_active=True)
         
+        # Render the full email template with the newsletter content
+        full_email_html = render_to_string('emails/newsletter.html', {'newsletter': newsletter})
+        
         count = 0
         for sub in subscribers:
             success = send_newsletter_email(
                 recipient_email=sub.email,
                 subject=newsletter.title,
-                html_content=newsletter.content
+                html_content=full_email_html
             )
             if success:
                 count += 1

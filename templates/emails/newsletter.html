@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ newsletter.title }}</title>
+    <style>
+        /* Reset & Basics */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            color: #d4d4d4;
+            line-height: 1.6;
+        }
+        table {
+            border-spacing: 0;
+            width: 100%;
+        }
+        td {
+            padding: 0;
+        }
+        img {
+            border: 0;
+        }
+
+        /* Container */
+        .email-container {
+            max-width: 640px;
+            margin: 0 auto;
+            background-color: #1a1a1a;
+        }
+
+        /* Header */
+        .email-header {
+            background-color: #111;
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 1px solid #333;
+        }
+        .brand-title {
+            color: #fff;
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+            margin: 0;
+            line-height: 1.2;
+        }
+        .brand-subtitle {
+            color: #888;
+            font-size: 11px;
+            font-family: monospace;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 10px;
+            display: block;
+        }
+
+        /* Content */
+        .email-body {
+            padding: 40px 30px;
+        }
+        .article-meta {
+            font-family: monospace;
+            color: #666;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+
+        /* Typography for Generated Content */
+        .content-area h1 {
+            color: #fff;
+            font-size: 22px;
+            font-weight: 700;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-left: 4px solid #fff;
+            padding-left: 15px;
+            line-height: 1.3;
+        }
+        .content-area h2 {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 700;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+        .content-area p {
+            margin-bottom: 20px;
+            font-size: 15px;
+            color: #ccc;
+            line-height: 1.8;
+        }
+        .content-area ul {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+        .content-area li {
+            margin-bottom: 10px;
+            color: #ccc;
+        }
+        .content-area a {
+            color: #fff;
+            text-decoration: underline;
+        }
+        .content-area blockquote {
+            border-left: 2px solid #555;
+            margin: 20px 0;
+            padding: 10px 20px;
+            color: #999;
+            font-style: italic;
+            background: rgba(255,255,255,0.03);
+        }
+
+        /* Footer */
+        .email-footer {
+            background-color: #111;
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid #333;
+            font-size: 11px;
+            color: #555;
+            font-family: monospace;
+        }
+        .footer-link {
+            color: #777;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .end-mark {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #333;
+            transform: rotate(45deg);
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <!-- Header -->
+        <div class="email-header">
+            <h1 class="brand-title">Intelligent<br>Defense Briefing</h1>
+            <span class="brand-subtitle">Global Defense Intelligence</span>
+        </div>
+
+        <!-- Body -->
+        <div class="email-body">
+            <div class="article-meta">
+                <span>{{ newsletter.published_at|date:"Y.m.d l" }}</span>
+                <span style="float: right;">Briefing #{{ newsletter.id }}</span>
+            </div>
+
+            <div class="content-area">
+                <!-- Main Content from AI -->
+                {{ newsletter.content|safe }}
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="email-footer">
+            <div class="end-mark"></div>
+            <p style="margin: 0 0 10px 0;">/// END OF TRANSMISSION ///</p>
+            <p style="margin: 0 0 20px 0;">
+                © 2026 MiliCookie News. All rights reserved.<br>
+                Security Classification: UNCLASSIFIED
+            </p>
+            <div>
+                <a href="#" class="footer-link">Unsubscribe</a>
+                <span style="color: #333;">|</span>
+                <a href="#" class="footer-link">Privacy Policy</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
