@@ -32,6 +32,13 @@
     .subscribe-card {
         background-color: var(--surface-color);
     }
+    @media (max-width: 767.98px) {
+        .hero-subscribe-container {
+            transform: scale(0.9);
+            transform-origin: center top;
+            width: 100%;
+        }
+    }
 </style>
 
 <section class="hero-section" id="hero-bg">
@@ -47,12 +54,12 @@
                 </p>
                 
                 <div class="row justify-content-center">
-                    <div class="col-md-8">
+                    <div class="col-md-8 hero-subscribe-container">
                         <form method="post" action="{% url 'subscribe' %}" class="">
                             {% csrf_token %}
                             <div class="input-group">
                                 <input type="email" name="email" class="form-control" placeholder="이메일을 입력해주세요." required>
-                                <button class="btn btn-primary px-4" type="submit">뉴스레터 받기</button>
+                                <button class="btn btn-primary px-4" type="submit">구독하기</button>
                             </div>
                         </form>
                     </div>
