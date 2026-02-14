@@ -43,7 +43,7 @@
                     Intelligent<br>Defense Briefing
                 </h1>
                 <p class="lead mb-5 text-secondary px-md-5">
-                    We process global defense news with AI and deliver purely actionable intelligence to your inbox. No noise. Just signal.
+                    매일 아침, 글로벌 방위산업 흐름을 읽는 가장 정교한 시선.<br>
                 </p>
                 
                 <div class="row justify-content-center">
@@ -51,12 +51,9 @@
                         <form method="post" action="{% url 'subscribe' %}" class="">
                             {% csrf_token %}
                             <div class="input-group">
-                                <input type="email" name="email" class="form-control" placeholder="YOUR EMAIL ADDRESS" required>
-                                <button class="btn btn-primary px-4" type="submit">Initialize</button>
+                                <input type="email" name="email" class="form-control" placeholder="이메일을 입력해주세요." required>
+                                <button class="btn btn-primary px-4" type="submit">뉴스레터 받기</button>
                             </div>
-                            <small class="text-secondary d-block mt-3 font-mono" style="font-size: 0.75rem;">
-                                SECURE TRANSMISSION. UNSUBSCRIBE ANYTIME.
-                            </small>
                         </form>
                     </div>
                 </div>
