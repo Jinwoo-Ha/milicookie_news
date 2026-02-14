@@ -25,6 +25,16 @@ def run_newsletter_crew_task():
         # Convert Markdown to HTML for email
         html_content = markdown.markdown(markdown_content)
         
+        # Post-process HTML for styling <배경> and <기사>
+        # Make them stand out: block display, larger font, bold, margin top/bottom
+        style_block = 'style="font-size: 1.4rem; font-weight: 800; color: #1a1a1a; margin-top: 1.5rem; margin-bottom: 0.5rem; display: block;"'
+        
+        html_content = html_content.replace("&lt;배경&gt;", f'<span {style_block}>&lt;배경&gt;</span><br>')
+        html_content = html_content.replace("<배경>", f'<span {style_block}>&lt;배경&gt;</span><br>')
+        
+        html_content = html_content.replace("&lt;기사&gt;", f'<span {style_block}>&lt;기사&gt;</span><br>')
+        html_content = html_content.replace("<기사>", f'<span {style_block}>&lt;기사&gt;</span><br>')
+
         # Create Newsletter entry
         today = timezone.now().date()
         title = f"방산 뉴스 데일리 다이제스트 - {today}"
