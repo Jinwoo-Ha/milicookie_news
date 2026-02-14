@@ -179,4 +179,4 @@ CELERY_BEAT_SCHEDULE = {
     },
 }
 
-CSRF_TRUSTED_ORIGINS = ['https://last-production-7612.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://milicookienews-production.up.railway.app']
