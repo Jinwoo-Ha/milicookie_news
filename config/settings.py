@@ -34,6 +34,9 @@ CSRF_TRUSTED_ORIGINS = [
     "https://*.app.github.dev",
     "https://localhost:8000",
     "https://127.0.0.1:8000",
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+    "https://milicookienews-production.up.railway.app",
 ]
 
 
@@ -196,5 +199,3 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': crontab(hour=6, minute=30),
     },
 }
-
-CSRF_TRUSTED_ORIGINS = ['https://milicookienews-production.up.railway.app']
