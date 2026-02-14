@@ -47,13 +47,34 @@ rewrite_articles_in_korean:
     For example - Original Source: Defense News  or  Original Source: Breaking Defense
     Ensure proper Korean military terminology throughout and maintain journalistic
     precision. Do not include any separate terminology explanation sections.
+    
+    CRITICAL FORMATTING INSTRUCTIONS:
+    - You MUST number the articles sequentially from 1 to 7. Do not restart numbering.
+    - Title Format: Use Markdown H2 (##) for titles. 
+      Example: ## 1. K2 전차, 폴란드 추가 수출 계약 체결
+    - Do NOT use "1.", "1)" or standard list numbering for the title line. ONLY use "## Number. Title".
+    - Between articles, insert a horizontal rule (---) for separation.
   expected_output: >
-    7 complete, detailed Korean-language defense news articles. Each article must
-    follow this exact structure -
-    1) Korean headline
-    2) <배경> section with essential background context (no terminology definitions)
-    3) <기사> section with full comprehensive Korean article text
-    4) Original Source with only the source news outlet name (e.g. Original Source: Defense News)
+    7 complete, detailed Korean-language defense news articles. 
+    Strictly follow this example structure for EVERY article:
+
+    ## 1. [Korean Title of Article 1]
+
+    <배경>
+    [Detailed background context...]
+
+    <기사>
+    [Detailed article content...]
+
+    Original Source: [Source Name]
+
+    ---
+
+    ## 2. [Korean Title of Article 2]
+    ...
+
+    (Continue until ## 7.)
+    
     Each article should be substantially detailed, informative, and accessible
     to Korean readers. Do not include terminology glossaries or definition lists.
   agent: korean_defense_content_writer
