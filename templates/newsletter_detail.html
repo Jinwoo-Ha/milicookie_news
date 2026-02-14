@@ -2,102 +2,184 @@
 
 {% block content %}
 <style>
-    .breadcrumb-item a {
+    /* Global Article Layout */
+    .detail-container {
+        max-width: 760px; /* Optimal reading width */
+        margin: 0 auto;
+        padding: 0 1.5rem;
+    }
+
+    /* Navigation & Breadcrumbs */
+    .nav-utils {
+        margin-bottom: 3rem;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.8rem;
+        letter-spacing: 0.05em;
+    }
+    .nav-utils a {
         color: var(--text-secondary);
         text-decoration: none;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.8rem;
+        transition: color 0.2s;
+        display: inline-flex;
+        align-items: center;
     }
-    .breadcrumb-item.active {
-        color: var(--text-primary);
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.8rem;
+    .nav-utils a:hover {
+        color: #fff;
     }
-    .detail-container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding-left: 1.5rem;
-        padding-right: 1.5rem;
+    .nav-utils a::before {
+        content: '←';
+        margin-right: 8px;
     }
-    @media (max-width: 576px) {
-        .detail-container {
-            padding-left: 1rem;
-            padding-right: 1rem;
-        }
-    }
+
+    /* Article Hero / Header */
     .article-header {
-        border-bottom: 1px solid var(--border-color);
-        padding-bottom: 2rem;
-        margin-bottom: 3rem;
+        margin-bottom: 4rem;
+        text-align: left;
     }
+    .article-meta-top {
+        border-top: 1px solid rgba(255,255,255,0.15);
+        border-bottom: 1px solid rgba(255,255,255,0.15);
+        padding: 1rem 0;
+        margin-bottom: 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: var(--text-secondary);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+    }
+    .article-title {
+        font-size: clamp(2.5rem, 5vw, 3.5rem);
+        font-weight: 800;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+        color: #fff;
+        margin-bottom: 0;
+    }
+
+    /* Article Content Typography */
     .newsletter-content {
-        font-size: 1.15rem;
-        color: #d4d4d4; 
-        line-height: 1.8;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-size: 1.2rem;
+        color: #d4d4d4;
+        line-height: 1.85;
+        font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     }
-    .newsletter-content p {
-        margin-bottom: 2em; /* Paragraph spacing increased */
-    }
-    .newsletter-content h1, .newsletter-content h2, .newsletter-content h3 {
+    
+    /* Section Headings */
+    .newsletter-content h1, 
+    .newsletter-content h2 {
         color: #fff;
         font-weight: 800;
-        margin-top: 3.5rem;
+        font-size: 1.8rem;
+        margin-top: 4rem;
         margin-bottom: 1.5rem;
-        letter-spacing: -0.02em;
         line-height: 1.3;
+        letter-spacing: -0.01em;
+        /* Stylized Section Header */
+        display: flex;
+        align-items: center;
     }
+    .newsletter-content h1::before,
+    .newsletter-content h2::before {
+        content: '';
+        display: inline-block;
+        width: 6px;
+        height: 24px;
+        background-color: #fff; /* Key Color */
+        margin-right: 12px;
+        border-radius: 1px;
+    }
+    
+    .newsletter-content h3 {
+        color: #fff;
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin-top: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    /* Paragraphs & Text */
+    .newsletter-content p {
+        margin-bottom: 1.8em;
+    }
+    
+    /* Lists */
     .newsletter-content ul, .newsletter-content ol {
         margin-bottom: 2em;
-        padding-left: 1.2em;
+        padding-left: 0;
+        list-style-position: inside;
     }
     .newsletter-content li {
-        margin-bottom: 0.7em;
+        margin-bottom: 0.8em;
+        padding-left: 1rem;
+        position: relative;
     }
-    .newsletter-content strong {
-        color: #fff;
-        font-weight: 600;
+    .newsletter-content ul li::marker {
+        color: #666;
     }
+
+    /* Quotes */
+    .newsletter-content blockquote {
+        border-left: 2px solid #555;
+        margin: 3rem 0;
+        padding: 1rem 2rem;
+        font-style: italic;
+        color: #aaa;
+        background: rgba(255,255,255,0.03);
+    }
+
+    /* Links */
     .newsletter-content a {
-        color: var(--brand-color, #a0a0a0);
-        text-decoration: underline;
-        text-decoration-color: rgba(255,255,255,0.3);
-        text-underline-offset: 4px;
-        transition: all 0.2s ease;
+        color: #fff;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(255,255,255,0.4);
+        transition: all 0.2s;
     }
     .newsletter-content a:hover {
-        color: #fff;
-        text-decoration-color: #fff;
+        border-bottom-color: #fff;
+        background-color: rgba(255,255,255,0.1);
     }
-    .article-header h1 {
-        letter-spacing: -0.03em;
-        line-height: 1.1;
+
+    /* Footer / End Mark */
+    .article-footer {
+        margin-top: 6rem;
+        padding-top: 3rem;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        text-align: center;
+    }
+    .end-mark {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        background-color: #333;
+        transform: rotate(45deg);
     }
 </style>
 
 <div class="container py-5">
     
     <div class="detail-container">
-        <!-- Breadcrumb -->
-        <nav aria-label="breadcrumb" class="mb-5">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{% url 'archive' %}">ARCHIVE</a></li>
-            </ol>
-        </nav>
+        <!-- Back Navigation -->
+        <div class="nav-utils">
+            <a href="{% url 'archive' %}">뒤로 가기</a>
+        </div>
 
-        <header class="article-header text-center">
-            <div class="mb-3 font-mono text-secondary small">
-                {{ newsletter.published_at|date:"Y-m-d" }}
+        <header class="article-header">
+            <div class="article-meta-top">
+                <span>Briefing ID #{{ newsletter.id }}</span>
+                <span>{{ newsletter.published_at|date:"Y.m.d" }}</span>
             </div>
-            <h1 class="display-4 fw-bold mb-0 text-white">{{ newsletter.title }}</h1>
+            <h1 class="article-title">{{ newsletter.title }}</h1>
         </header>
 
         <article class="newsletter-content">
             {{ newsletter.content|safe }}
         </article>
         
-        <div class="mt-5 pt-5 border-top border-secondary text-center" style="border-color: #222 !important;">
-            <small class="text-secondary font-mono">/// END  ///</small>
+        <div class="article-footer">
+            <div class="end-mark mb-3"></div>
+            <p class="font-mono text-secondary small">/// END ///</p>
         </div>
     </div>
 </div>
