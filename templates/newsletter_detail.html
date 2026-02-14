@@ -1,26 +1,76 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container py-5">
-    <!-- Breadcrumb -->
-    <nav aria-label="breadcrumb" class="mb-4">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{% url 'archive' %}">아카이브</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{ newsletter.title }}</li>
-        </ol>
-    </nav>
+<style>
+    .breadcrumb-item a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.8rem;
+    }
+    .breadcrumb-item.active {
+        color: var(--text-primary);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.8rem;
+    }
+    .detail-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    .article-header {
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 2rem;
+        margin-bottom: 3rem;
+    }
+    .newsletter-content {
+        font-size: 1.1rem;
+        color: #d4d4d4; /* Slightly softer white for reading */
+        line-height: 1.8;
+    }
+    .newsletter-content h1, .newsletter-content h2, .newsletter-content h3 {
+        color: #fff;
+        font-weight: 700;
+        margin-top: 2.5rem;
+        margin-bottom: 1rem;
+    }
+    .newsletter-content a {
+        color: #fff;
+        text-decoration: underline;
+        text-decoration-color: #666;
+        text-underline-offset: 4px;
+    }
+    .newsletter-content a:hover {
+        text-decoration-color: #fff;
+    }
+</style>
 
-    <article class="bg-white p-5 rounded shadow">
-        <header class="mb-5 border-bottom pb-4">
-            <h1 class="fw-bold mb-3">{{ newsletter.title }}</h1>
-            <div class="text-muted">
-                {{ newsletter.published_at|date:"Y년 m월 d일 H:i" }} 발행
+<div class="container py-5">
+    
+    <div class="detail-container">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="mb-5">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'archive' %}">ARCHIVE</a></li>
+                <li class="breadcrumb-item active" aria-current="page">REPORT #{{ newsletter.id }}</li>
+            </ol>
+        </nav>
+
+        <header class="article-header text-center">
+            <div class="mb-3 font-mono text-secondary small">
+                {{ newsletter.published_at|date:"Y-m-d H:i" }} UTC
             </div>
+            <h1 class="display-4 fw-bold mb-0 text-white">{{ newsletter.title }}</h1>
         </header>
 
-        <div class="newsletter-content">
+        <article class="newsletter-content">
             {{ newsletter.content|safe }}
+        </article>
+        
+        <div class="mt-5 pt-5 border-top border-secondary text-center" style="border-color: #222 !important;">
+            <small class="text-secondary font-mono">/// END OF TRANSMISSION ///</small>
         </div>
-    </article>
+    </div>
 </div>
 {% endblock %}
+
+

@@ -1,46 +1,107 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<style>
+    .archive-header {
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 1rem;
+        margin-bottom: 3rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+    .newsletter-card {
+        background-color: transparent;
+        border: 1px solid var(--border-color);
+        border-radius: 0;
+        transition: all 0.2s;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .newsletter-card:hover {
+        background-color: var(--surface-color);
+        border-color: var(--text-secondary);
+    }
+    .newsletter-card a {
+        color: var(--text-primary) !important;
+        font-weight: 600;
+        font-size: 1.1rem;
+    }
+    .newsletter-card .meta {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+    }
+    .page-link {
+        background-color: transparent;
+        border: 1px solid var(--border-color);
+        color: var(--text-secondary);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.8rem;
+    }
+    .page-link:hover {
+        background-color: var(--surface-color);
+        border-color: var(--text-primary);
+        color: var(--text-primary);
+    }
+</style>
+
 <div class="container py-5">
-    <h2 class="mb-4">뉴스레터 아카이브</h2>
+    <div class="archive-header">
+        <h2 class="">Archives</h2>
+        <span class="font-mono text-light-muted">SECURED RECORDS</span>
+    </div>
+
     <div class="row row-cols-1 row-cols-md-2 g-4">
         {% for newsletter in newsletters %}
         <div class="col">
-            <div class="card h-100 newsletter-card shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <a href="{% url 'newsletter_detail' newsletter.id %}" class="text-decoration-none text-dark stretched-link">
+            <div class="card newsletter-card p-4">
+                <div class="mb-auto">
+                    <div class="meta d-flex justify-content-between">
+                        <span>{{ newsletter.published_at|date:"Y.m.d" }}</span>
+                        <span>ID: #{{ newsletter.id }}</span>
+                    </div>
+                    <h5 class="card-title mb-3">
+                        <a href="{% url 'newsletter_detail' newsletter.id %}" class="text-decoration-none stretched-link">
                             {{ newsletter.title }}
                         </a>
                     </h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{{ newsletter.published_at|date:"Y년 m월 d일" }}</h6>
-                    <p class="card-text text-truncate">{{ newsletter.summary }}</p>
+                    <p class="card-text text-light-muted small">{{ newsletter.summary|truncatechars:100 }}</p>
                 </div>
-                <div class="card-footer bg-transparent border-0">
-                    <small class="text-muted">조회수 대신 발송수: {{ newsletter.sent_count }}명</small>
+                <div class="mt-4 pt-3 border-top border-secondary" style="border-color: #222 !important">
+                    <small class="font-mono text-secondary" style="font-size: 0.7rem;">
+                        SENT TO {{ newsletter.sent_count }} RECIPIENTS
+                    </small>
                 </div>
             </div>
         </div>
         {% empty %}
         <div class="col-12">
-            <p class="text-center text-muted py-5">아직 발행된 뉴스레터가 없습니다.</p>
+            <div class="py-5 text-center text-muted font-mono">
+                [SYSTEM MESSAGE] NO LOGS FOUND
+            </div>
         </div>
         {% endfor %}
     </div>
     
-    <!-- Custom Pagination (simplified) -->
+    <!-- Custom Pagination -->
     {% if is_paginated %}
-    <nav class="mt-4">
+    <nav class="mt-5">
         <ul class="pagination justify-content-center">
             {% if page_obj.has_previous %}
-                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">이전</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">PREV</a></li>
             {% endif %}
             <li class="page-item disabled"><a class="page-link" href="#">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</a></li>
             {% if page_obj.has_next %}
-                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">다음</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">NEXT</a></li>
             {% endif %}
         </ul>
     </nav>
     {% endif %}
 </div>
 {% endblock %}
+
+
