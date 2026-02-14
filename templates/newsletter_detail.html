@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'archive' %}">아카이브</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ newsletter.title }}</li>
+        </ol>
+    </nav>
+
+    <article class="bg-white p-5 rounded shadow">
+        <header class="mb-5 border-bottom pb-4">
+            <h1 class="fw-bold mb-3">{{ newsletter.title }}</h1>
+            <div class="text-muted">
+                {{ newsletter.published_at|date:"Y년 m월 d일 H:i" }} 발행
+            </div>
+        </header>
+
+        <div class="newsletter-content">
+            {{ newsletter.content|safe }}
+        </div>
+    </article>
+</div>
+{% endblock %}

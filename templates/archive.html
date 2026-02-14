@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="mb-4">뉴스레터 아카이브</h2>
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        {% for newsletter in newsletters %}
+        <div class="col">
+            <div class="card h-100 newsletter-card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{% url 'newsletter_detail' newsletter.id %}" class="text-decoration-none text-dark stretched-link">
+                            {{ newsletter.title }}
+                        </a>
+                    </h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ newsletter.published_at|date:"Y년 m월 d일" }}</h6>
+                    <p class="card-text text-truncate">{{ newsletter.summary }}</p>
+                </div>
+                <div class="card-footer bg-transparent border-0">
+                    <small class="text-muted">조회수 대신 발송수: {{ newsletter.sent_count }}명</small>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p class="text-center text-muted py-5">아직 발행된 뉴스레터가 없습니다.</p>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <!-- Custom Pagination (simplified) -->
+    {% if is_paginated %}
+    <nav class="mt-4">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">이전</a></li>
+            {% endif %}
+            <li class="page-item disabled"><a class="page-link" href="#">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</a></li>
+            {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">다음</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+{% endblock %}

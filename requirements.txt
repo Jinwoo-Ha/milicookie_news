@@ -1,0 +1,10 @@
+django>=5.0
+celery
+django-celery-beat
+redis
+python-dotenv
+crewai
+crewai-tools
+resend
+markdown
+pyyaml

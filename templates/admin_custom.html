@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="mb-4">관리자 대시보드</h1>
+    
+    <div class="row g-4 mb-5">
+        <!-- Stats Cards -->
+        <div class="col-md-4">
+            <div class="card bg-primary text-white h-100">
+                <div class="card-body">
+                    <h5 class="card-title">총 구독자</h5>
+                    <p class="display-4 fw-bold">{{ total_subscribers }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-success text-white h-100">
+                <div class="card-body">
+                    <h5 class="card-title">발행된 뉴스레터</h5>
+                    <p class="display-4 fw-bold">{{ total_newsletters }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-secondary text-white h-100">
+                <div class="card-body">
+                    <h5 class="card-title">시스템 상태</h5>
+                    <p class="h3 mt-3">
+                        <span class="badge bg-light text-dark">Redis: Connected</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="card mb-5">
+        <div class="card-header bg-dark text-white">
+            <h5 class="mb-0">수동 제어 (Manual Trigger)</h5>
+        </div>
+        <div class="card-body">
+            <p>즉시 AI 에이전트를 실행하여 뉴스를 수집, 분석하고 뉴스레터를 생성 및 발송합니다.</p>
+            <form method="post" action="{% url 'trigger_crew' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger btn-lg" onclick="return confirm('정말 실행하시겠습니까? 약 5-10분이 소요됩니다.');">
+                    <i class="bi bi-play-fill"></i> 뉴스레터 생성 및 발송 시작
+                </button>
+            </form>
+            {% if messages %}
+                <div class="mt-3">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Recent Subscribers -->
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">최근 구독자 목록</h5>
+        </div>
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sub in recent_subscribers %}
+                <tr>
+                    <td>{{ sub.email }}</td>
+                    <td>{{ sub.subscribed_at|date:"Y-m-d H:i" }}</td>
+                    <td>
+                        {% if sub.is_active %}
+                        <span class="badge bg-success">Active</span>
+                        {% else %}
+                        <span class="badge bg-secondary">Inactive</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
