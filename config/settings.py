@@ -181,6 +181,12 @@ if REDIS_URL.startswith("rediss://"):
     CELERY_REDIS_BACKEND_USE_SSL = {
         "ssl_cert_reqs": ssl.CERT_NONE
     }
+    # Ensure transport options also respect SSL settings
+    CELERY_BROKER_TRANSPORT_OPTIONS = {
+        "ssl": {
+            "ssl_cert_reqs": ssl.CERT_NONE
+        }
+    }
 
 from celery.schedules import crontab
 
