@@ -88,12 +88,30 @@ WSGI_APPLICATION = "config.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+# 환경 변수로 실행 환경 구분 (기본값은 'local')
+ENVIRONMENT = os.environ.get('DJANGO_ENVIRONMENT', 'local')
+
+# 환경에 따른 데이터베이스 설정
+if ENVIRONMENT == 'production':
+    # 서버(프로덕션) 환경 설정
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'railway',
+            'USER': 'postgres',
+            'PASSWORD': 'UnGfsYsRecwORZTOnaSOBkGrLxPUQbzE',
+            'HOST': 'mainline.proxy.rlwy.net',
+            'PORT': '27614',
+        }
     }
-}
+else:
+    # 로컬 환경 설정 (SQLite 사용)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
