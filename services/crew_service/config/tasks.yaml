@@ -5,20 +5,27 @@ scrape_defense_news_articles:
     2) https://breakingdefense.com/
     3) https://www.shephardmedia.com/news/
     4) https://www.janes.com/osint-insights/defence-news
+    5) https://aviationweek.com/defense
+    6) https://www.navalnews.com/category/naval-news/
+    7) https://defence-industry.eu/
+    8) https://www.nationaldefensemagazine.org/articles
+    9) https://www.defenseone.com/?oref=d1-nav
+    10) https://www.twz.com/
     For each website, extract article headlines, publication dates, author information,
     article summaries/previews, and full article links. Focus on today's and recent
     articles, capturing comprehensive article metadata and content previews to enable
-    effective analysis. Scrape all four sources thoroughly.
+    effective analysis. Scrape all ten sources thoroughly.
   expected_output: >
-    A structured list of defense news articles from all four sources
+    A structured list of defense news articles from all ten sources
     containing source website name, article headlines, publication dates, authors,
     article summaries/previews, full article URLs, and any available tags or categories.
     Format the output in a clear, organized manner grouped by source for easy analysis.
   agent: defense_news_web_scraper
 analyze_and_prioritize_top_7_articles:
-  description: 'Analyze all scraped defense news articles from all four sources
-    (Defense News, Breaking Defense, Shephard Media, Janes) and identify the 7 most
-    important and newsworthy articles. Evaluate articles based on: strategic significance,
+  description: 'Analyze all scraped defense news articles from all ten sources
+    (Defense News, Breaking Defense, Shephard Media, Janes, Aviation Week, Naval News,
+    Defence Industry Europe, National Defense, Defense One, The War Zone) and identify
+    the 7 most important and newsworthy articles. Evaluate articles based on: strategic significance,
     breaking news value, geopolitical impact, defense industry relevance, policy implications,
     and technological developments. Select the best 7 articles across all sources
     regardless of which website they came from. Rank articles by importance and provide
@@ -58,7 +65,9 @@ rewrite_articles_in_korean:
     4) End with Original Source showing only the source news outlet name, not the URL.
     For example - Original Source: Defense News  or  Original Source: Breaking Defense
     Ensure proper Korean military terminology throughout and maintain journalistic
-    precision. Do not include any separate terminology explanation sections.
+    precision. Articles MUST be written in the formal "~다" style (plain form),
+    avoiding polite endings like "~습니다" or "~해요". Do not include any separate
+    terminology explanation sections.
     
     CRITICAL FORMATTING INSTRUCTIONS:
     - You MUST number the articles sequentially from 1 to 7. Do not restart numbering.
