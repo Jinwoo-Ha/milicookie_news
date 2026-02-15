@@ -17,13 +17,14 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from subscribers.views import home, subscribe
+from subscribers.views import home, subscribe, research
 from newsletters.views import NewsletterListView, NewsletterDetailView
 from dashboard.views import dashboard_view, trigger_crew
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
+    path('research/', research, name='research'),
     path('subscribe/', subscribe, name='subscribe'),
     path('archive/', NewsletterListView.as_view(), name='archive'),
     path('archive/<int:pk>/', NewsletterDetailView.as_view(), name='newsletter_detail'),

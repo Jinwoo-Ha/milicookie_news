@@ -5,6 +5,9 @@ from .models import Subscriber
 def home(request):
     return render(request, 'home.html')
 
+def research(request):
+    return render(request, 'research.html')
+
 def subscribe(request):
     if request.method == 'POST':
         email = request.POST.get('email')

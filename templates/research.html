@@ -1,0 +1,326 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    /* Research Page Specific Styles */
+    .research-hero {
+        padding: 4rem 0 2rem;
+        border-bottom: 1px solid var(--border-color);
+        position: relative;
+    }
+    
+    .research-title {
+        font-weight: 800;
+        letter-spacing: -2px;
+        margin-bottom: 2rem;
+        position: relative;
+        display: inline-block;
+    }
+
+    /* Data Points Grid */
+    .data-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 20px;
+        padding: 4rem 0;
+    }
+
+    /* Data Point Card - Node Style */
+    .data-node {
+        position: relative;
+        background-color: rgba(10, 10, 10, 0.6);
+        border: 1px solid var(--border-color);
+        padding: 1.5rem;
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        overflow: hidden;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .data-node:hover {
+        border-color: var(--text-primary);
+        background-color: rgba(255, 255, 255, 0.05);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px -10px rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Corner Markers for Tech Feel */
+    .data-node::before, .data-node::after {
+        content: '';
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+    }
+    
+    .data-node::before {
+        top: 0;
+        left: 0;
+        border-top-color: var(--border-color);
+        border-left-color: var(--border-color);
+    }
+    .data-node::after {
+        bottom: 0;
+        right: 0;
+        border-bottom-color: var(--border-color);
+        border-right-color: var(--border-color);
+    }
+
+    .data-node:hover::before {
+        border-color: var(--text-primary);
+        width: 100%;
+        height: 100%;
+    }
+    .data-node:hover::after {
+        border-color: var(--text-primary);
+        width: 100%;
+        height: 100%;
+        opacity: 0; /* Fade out inner corners on full hover? Or just keep corners. Let's animate corners expanding */
+        /* Let's keep it simple: Expand corners */
+    }
+
+    /* Content Styling */
+    .node-number {
+        font-family: 'JetBrains Mono', monospace;
+        color: var(--text-secondary);
+        font-size: 0.8rem;
+        position: absolute;
+        top: 1rem;
+        right: 1.5rem;
+        opacity: 0.5;
+    }
+
+    .node-title {
+        font-family: 'Inter', sans-serif;
+        font-weight: 700;
+        font-size: 1.25rem;
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+        z-index: 2;
+    }
+
+    .node-category {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        margin-bottom: 0;
+        transition: opacity 0.2s;
+    }
+
+    /* Hover Detail Overlay */
+    .node-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        backdrop-filter: blur(8px);
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), 
+                    transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        z-index: 3;
+        pointer-events: none;
+    }
+
+    .data-node:hover .node-overlay {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+
+    .overlay-title {
+        font-family: 'Inter', sans-serif;
+        font-weight: 700;
+        font-size: 1.1rem;
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+    }
+
+    .overlay-divider {
+        width: 40px;
+        height: 2px;
+        background-color: var(--text-primary);
+        margin-bottom: 1rem;
+    }
+
+    .overlay-desc {
+        font-size: 0.9rem;
+        color: #ffffff;
+        margin-bottom: 0;
+        line-height: 1.6;
+        font-weight: 300;
+    }
+
+    /* Mobile Adjustments */
+    @media (max-width: 768px) {
+        .data-grid {
+            grid-template-columns: 1fr; /* Full width on mobile */
+            gap: 15px;
+        }
+        .data-node {
+            height: auto;
+            min-height: 140px;
+        }
+    }
+</style>
+
+<div class="container">
+    <div class="research-hero">
+        <h1 class="research-title">Defense Websites</h1>
+        <p class="text-secondary font-mono">Curated Intelligence Sources</p>
+    </div>
+
+    <div class="data-grid">
+        <!-- 1. Janes -->
+        <a href="https://www.janes.com/" target="_blank" class="data-node">
+            <span class="node-number">01</span>
+            <h3 class="node-title">Janes</h3>
+            <p class="node-category">Data & Intelligence</p>
+            <div class="node-overlay">
+                <h4 class="overlay-title">Janes</h4>
+                <div class="overlay-divider"></div>
+                <p class="overlay-desc">3억 5천만 건의 데이터를 보유한 글로벌 국방 인텔리전스의 표준</p>
+            </div>
+        </a>
+
+        <!-- 2. Aviation Week -->
+        <a href="https://aviationweek.com/" target="_blank" class="data-node">
+            <span class="node-number">02</span>
+            <h3 class="node-title">Aviation Week</h3>
+            <p class="node-category">Aerospace & MRO</p>
+            <div class="node-overlay">
+                <h4 class="overlay-title">Aviation Week</h4>
+                <div class="overlay-divider"></div>
+                <p class="overlay-desc">항공우주 및 MRO 산업에 특화된 데이터 아카이브</p>
+            </div>
+        </a>
+
+        <!-- 3. Defense News -->
+        <a href="https://www.defensenews.com/" target="_blank" class="data-node">
+            <span class="node-number">03</span>
+            <h3 class="node-title">Defense News</h3>
+            <p class="node-category">Business & Policy</p>
+            <div class="node-overlay">
+                <h4 class="overlay-title">Defense News</h4>
+                <div class="overlay-divider"></div>
+                <p class="overlay-desc">글로벌 방산 기업 분석과 국방 정책 정보</p>
+            </div>
+        </a>
+
+        <!-- 4. Breaking Defense -->
+        <a href="https://breakingdefense.com/" target="_blank" class="data-node">
+            <span class="node-number">04</span>
+            <h3 class="node-title">Breaking Defense</h3>
+            <p class="node-category">Strategy & Tech</p>
+            <div class="node-overlay">
+                <h4 class="overlay-title">Breaking Defense</h4>
+                <div class="overlay-divider"></div>
+                <p class="overlay-desc">국방 정책 및 차세대 전장 도메인 분석</p>
+            </div>
+        </a>
+
+        <!-- 5. Shephard Media -->
+        <a href="https://www.shephardmedia.com/" target="_blank" class="data-node">
+            <span class="node-number">05</span>
+            <h3 class="node-title">Shephard Media</h3>
+            <p class="node-category">Market Intelligence</p>
+            <div class="node-overlay">
+                <h4 class="overlay-title">Shephard Media</h4>
+                <div class="overlay-divider"></div>
+                <p class="overlay-desc">육해공 무기 체계 프로그램 현황과 잠재적 시장 기회 분석</p>
+            </div>
+        </a>
+
+        <!-- 6. Naval News -->
+        <a href="https://www.navalnews.com/" target="_blank" class="data-node">
+            <span class="node-number">06</span>
+            <h3 class="node-title">Naval News</h3>
+            <p class="node-category">Naval Warfare</p>
+            <div class="node-overlay">
+                <h4 class="overlay-title">Naval News</h4>
+                <div class="overlay-divider"></div>
+                <p class="overlay-desc">해상 안보와 잠수함 기술, 수중 전쟁 분야 독보적인 OSINT 분석</p>
+            </div>
+        </a>
+
+        <!-- 7. Defence Industry Europe -->
+        <a href="https://defence-industry.eu/" target="_blank" class="data-node">
+            <span class="node-number">07</span>
+            <h3 class="node-title">Defence Industry Europe</h3>
+            <p class="node-category">European Market</p>
+            <div class="node-overlay">
+                <h4 class="overlay-title">Defence Industry Europe</h4>
+                <div class="overlay-divider"></div>
+                <p class="overlay-desc">EU의 국방 통합 이니셔티브와 유럽 내 획득 정책 정보</p>
+            </div>
+        </a>
+
+        <!-- 8. National Defense (NDIA) -->
+        <a href="https://www.nationaldefensemagazine.org/" target="_blank" class="data-node">
+            <span class="node-number">08</span>
+            <h3 class="node-title">National Defense</h3>
+            <p class="node-category">Industrial Base</p>
+            <div class="node-overlay">
+                <h4 class="overlay-title">National Defense</h4>
+                <div class="overlay-divider"></div>
+                <p class="overlay-desc">미국 국방 산업의 공급망 생태계와 기술 혁신을 주도하는 산업계 분석</p>
+            </div>
+        </a>
+
+        <!-- 9. Defense One -->
+        <a href="https://www.defenseone.com/" target="_blank" class="data-node">
+            <span class="node-number">09</span>
+            <h3 class="node-title">Defense One</h3>
+            <p class="node-category">Future Trends</p>
+            <div class="node-overlay">
+                <h4 class="overlay-title">Defense One</h4>
+                <div class="overlay-divider"></div>
+                <p class="overlay-desc">미래 전쟁의 양상과 국가 안보 전략 분석</p>
+            </div>
+        </a>
+
+        <!-- 10. The War Zone -->
+        <a href="https://www.twz.com/" target="_blank" class="data-node">
+            <span class="node-number">10</span>
+            <h3 class="node-title">The War Zone</h3>
+            <p class="node-category">Conflict Analysis</p>
+            <div class="node-overlay">
+                <h4 class="overlay-title">The War Zone</h4>
+                <div class="overlay-divider"></div>
+                <p class="overlay-desc">위성 이미지와 오픈 소스 정보를 결합하여 무기 체계와 실전 사례 분석</p>
+            </div>
+        </a>
+    </div>
+</div>
+
+<script>
+    // Optional: Add simple staggered fade-in effect via JS
+    document.addEventListener('DOMContentLoaded', function() {
+        const nodes = document.querySelectorAll('.data-node');
+        nodes.forEach((node, index) => {
+            node.style.opacity = '0';
+            node.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                node.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                node.style.opacity = '1';
+                node.style.transform = 'translateY(0)';
+            }, index * 100); // 100ms delay for each item
+        });
+    });
+</script>
+{% endblock %}
