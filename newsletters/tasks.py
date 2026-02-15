@@ -36,8 +36,11 @@ def run_newsletter_crew_task():
         html_content = html_content.replace("<기사>", f'<span {style_block}>&lt;기사&gt;</span><br>')
 
         # Create Newsletter entry
-        today = timezone.now().date()
-        title = f"방산 뉴스 데일리 다이제스트 - {today}"
+        # 한국 시간대(KST) 기준 날짜 가져오기
+        today = timezone.now().astimezone(timezone.get_current_timezone()).date()
+        
+        # 제목 형식 변경: 00월 00일 밀리쿠키 뉴스레터
+        title = f"{today.strftime('%m월 %d일')} 밀리쿠키 뉴스레터"
         
         newsletter = Newsletter.objects.create(
             title=title,
@@ -67,10 +70,12 @@ def distribute_newsletter_task(newsletter_id):
         subscribers = Subscriber.objects.filter(is_active=True)
         
         # Prepare email context
+        # 한국 시간대(KST) 기준 날짜 가져오기
+        current_date_kst = timezone.now().astimezone(timezone.get_current_timezone())
         context = {
             'title': newsletter.title,
             'content': newsletter.content,
-            'date': timezone.now().strftime("%Y. %m. %d / %a"), # e.g. 2024. 05. 21 / Tue
+            'date': current_date_kst.strftime("%Y. %m. %d / %a"), # e.g. 2026. 02. 14 / Sat
         }
         
         count = 0
