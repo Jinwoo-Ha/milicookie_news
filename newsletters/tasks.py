@@ -29,11 +29,21 @@ def run_newsletter_crew_task():
         # Make them stand out: block display, larger font, bold, margin top/bottom
         style_block = 'style="font-size: 1.4rem; font-weight: 800; color: #1a1a1a; margin-top: 1.5rem; margin-bottom: 0.5rem; display: block;"'
         
-        html_content = html_content.replace("&lt;배경&gt;", f'<span {style_block}>&lt;배경&gt;</span><br>')
-        html_content = html_content.replace("<배경>", f'<span {style_block}>&lt;배경&gt;</span><br>')
+        html_content = html_content.replace("&lt;배경&gt;", f'<span {style_block}>[배경]</span>')
+        html_content = html_content.replace("<배경>", f'<span {style_block}>[배경]</span>')
         
-        html_content = html_content.replace("&lt;기사&gt;", f'<span {style_block}>&lt;기사&gt;</span><br>')
-        html_content = html_content.replace("<기사>", f'<span {style_block}>&lt;기사&gt;</span><br>')
+        html_content = html_content.replace("&lt;기사&gt;", f'<span {style_block}>[기사]</span>')
+        html_content = html_content.replace("<기사>", f'<span {style_block}>[기사]</span>')
+        
+        # Style for "Today's Briefing" header
+        header_style = 'style="font-size: 1.5rem; font-weight: 800; color: #1a1a1a; margin-bottom: 1rem; border-bottom: 2px solid #1a1a1a; padding-bottom: 0.5rem;"'
+        html_content = html_content.replace("# &lt;오늘의 주요 뉴스&gt;", f'<h1 {header_style}>[미리보기]</h1>')
+        html_content = html_content.replace("# <오늘의 주요 뉴스>", f'<h1 {header_style}>[미리보기]</h1>')
+        html_content = html_content.replace("<h1>&lt;오늘의 주요 뉴스&gt;</h1>", f'<h1 {header_style}>[미리보기]</h1>')
+
+        # 가독성을 위해 문장 끝("다.")마다 줄바꿈 추가
+        # 단순히 replace만 하면 의도치 않은 줄바꿈이 생길 수 있으므로 "다. " 패턴을 타겟팅
+        html_content = html_content.replace("다.", "다.<br><br>")
 
         # Create Newsletter entry
         # 한국 시간대(KST) 기준 날짜 가져오기

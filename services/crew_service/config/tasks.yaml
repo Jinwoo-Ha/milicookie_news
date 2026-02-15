@@ -36,7 +36,19 @@ rewrite_articles_in_korean:
     in Korean with maximum detail and accuracy. Base your writing strictly on the
     original source material, expanding on technical details, strategic implications,
     and contextual information found in the source articles.
-    For each article, structure the output as follows -
+    
+    FIRST, generate a "Today's Briefing" section at the very top.
+    This section must list the titles of all 7 articles cleanly.
+    Format:
+    # <오늘의 주요 뉴스>
+    01. [Korean Title of Article 1]
+    02. [Korean Title of Article 2]
+    ...
+    07. [Korean Title of Article 7]
+    
+    ---
+
+    THEN, for each article, structure the content as follows -
     1) Korean headline as the article title
     2) A <배경> section providing essential background context such as geopolitical
     situation, historical background, and relevant strategic frameworks. Do NOT
@@ -55,8 +67,17 @@ rewrite_articles_in_korean:
     - Do NOT use "1.", "1)" or standard list numbering for the title line. ONLY use "## Number. Title".
     - Between articles, insert a horizontal rule (---) for separation.
   expected_output: >
-    7 complete, detailed Korean-language defense news articles. 
-    Strictly follow this example structure for EVERY article:
+    The output MUST start with the summary list, followed by the 7 detailed articles.
+    
+    Strictly follow this example structure:
+
+    # <오늘의 주요 뉴스>
+    01. [Title 1]
+    02. [Title 2]
+    ...
+    07. [Title 7]
+
+    ---
 
     ## 1. [Korean Title of Article 1]
 
@@ -76,7 +97,19 @@ rewrite_articles_in_korean:
     (Continue until ## 7.)
     
     Each article should be substantially detailed, informative, and accessible
-    to Korean readers. Do not include terminology glossaries or definition lists.
+    to Korean readers. 
+
+    Do not include terminology glossaries or definition lists.
+
+    CRITICAL FORMATTING FOR "Original Source":
+    - Ensure there is a blank line BEFORE "Original Source".
+    - Ensure there is a blank line AFTER "Original Source" before the horizontal rule (---).
+    - Example:
+      ...last sentence of article.
+
+      Original Source: Defense News
+
+      ---
   agent: korean_defense_content_writer
   context:
   - analyze_and_prioritize_top_7_articles
