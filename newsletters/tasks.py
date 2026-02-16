@@ -29,12 +29,6 @@ def run_newsletter_crew_task():
         # Make them stand out: block display, larger font, bold, margin top/bottom
         style_block = 'style="font-size: 1.4rem; font-weight: 800; color: #1a1a1a; margin-top: 1.5rem; margin-bottom: 0.5rem; display: block;"'
         
-        html_content = html_content.replace("&lt;배경&gt;", f'<span {style_block}>[배경]</span>')
-        html_content = html_content.replace("<배경>", f'<span {style_block}>[배경]</span>')
-        
-        html_content = html_content.replace("&lt;기사&gt;", f'<span {style_block}>[기사]</span>')
-        html_content = html_content.replace("<기사>", f'<span {style_block}>[기사]</span>')
-        
         # Style for "Today's Briefing" header
         header_style = 'style="font-size: 1.5rem; font-weight: 800; color: #1a1a1a; margin-bottom: 1rem; border-bottom: 2px solid #1a1a1a; padding-bottom: 0.5rem;"'
         html_content = html_content.replace("# &lt;오늘의 주요 뉴스&gt;", f'<h1 {header_style}>[미리보기]</h1>')

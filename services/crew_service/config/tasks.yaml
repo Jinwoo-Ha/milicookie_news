@@ -1,51 +1,200 @@
-scrape_defense_news_articles:
-  description: >
-    Scrape the latest articles from the following defense news websites -
-    1) https://www.defensenews.com/
-    2) https://breakingdefense.com/
-    3) https://www.shephardmedia.com/news/
-    4) https://www.janes.com/osint-insights/defence-news
-    5) https://aviationweek.com/defense
-    6) https://www.navalnews.com/category/naval-news/
-    7) https://defence-industry.eu/
-    8) https://www.nationaldefensemagazine.org/articles
-    9) https://www.defenseone.com/?oref=d1-nav
-    10) https://www.twz.com/
-    For each website, extract article headlines, publication dates, author information,
-    article summaries/previews, and full article links. Focus on today's and recent
-    articles, capturing comprehensive article metadata and content previews to enable
-    effective analysis. Scrape all ten sources thoroughly.
-  expected_output: >
-    A structured list of defense news articles from all ten sources
-    containing source website name, article headlines, publication dates, authors,
-    article summaries/previews, full article URLs, and any available tags or categories.
-    Format the output in a clear, organized manner grouped by source for easy analysis.
-  agent: defense_news_web_scraper
+extract_article_urls:
+  description: |-
+    Navigate to the news website main page at https://www.defensenews.com/ and extract exactly 3 REAL, EXISTING article URLs. You must:
+
+    1. **ACTUALLY SCRAPE** the website using the scraping tool - do not generate or fabricate URLs
+    2. **VERIFY** each URL leads to a real article by checking the scraped content
+    3. **EXTRACT** only URLs that appear in the actual website content (links, href attributes)
+    4. **VALIDATE** that URLs are complete and functional (include full domain)
+
+    **CRITICAL**: You must use the scraping tool to get the actual website content, then extract real article URLs from that content. DO NOT create hypothetical or example URLs.
+
+    Steps:
+    1. Scrape the homepage to get actual content
+    2. Look for article links in the scraped content (URLs containing /2024/, /2025/, /news/, etc.)
+    3. Extract exactly 3 real article URLs
+    4. Format as a simple list
+  expected_output: |-
+    A list of exactly 3 valid article URLs in the following format:
+    ```
+    1. https://example.com/article1
+    2. https://example.com/article2
+    3. https://example.com/article3
+    ```
+
+    Include a brief description of each article based on the link text or preview available on the main page.
+  agent: news_article_url_extractor
+
+scrape_article_contents:
+  description: "Using the article URLs provided from the previous task, access each
+    individual article and extract the complete content. **YOU MUST EXTRACT ALL 3
+    ARTICLES - DO NOT STOP AFTER THE FIRST ONE.**\n\nFor each of the 3 articles, extract:\n\n1.
+    **Article Title**: The main headline of the article\n2. **Publication Date**:
+    When the article was published (in any available format)  \n3. **Full Article
+    Content**: The complete text of the article body\n\n**CRITICAL REQUIREMENT**:
+    You must process ALL 3 URLs provided in the context. Do not stop after extracting
+    the first article. Continue to scrape all remaining URLs until you have extracted
+    content from all 3 articles.\n\nFor each article URL:\n1. Navigate to the article
+    page\n2. Identify and extract the main article title (usually in h1 tags or headline
+    sections)\n3. Find the publication date (look for date elements, timestamps, or
+    publish date indicators)\n4. Extract the full article content, ensuring you capture:\n
+    \  - All paragraphs of the main article body\n   - Exclude advertisements, comments,
+    related articles, and navigation\n   - Include all text content that is part of
+    the main article\n\nHandle different website layouts and structures gracefully.
+    If an element is not found for any article, note that in the output but continue
+    with the extraction of available elements from ALL articles."
+  expected_output: "A comprehensive report containing the extracted information for
+    all 3 articles in the following format:\n\n## Article 1\n**URL**: [article URL]\n**Title**:
+    [extracted title]\n**Publication Date**: [extracted date]\n**Content**: [full
+    article text]\n\n## Article 2\n**URL**: [article URL]  \n**Title**: [extracted
+    title]\n**Publication Date**: [extracted date]\n**Content**: [full article text]\n\n##
+    Article 3\n**URL**: [article URL]\n**Title**: [extracted title]\n**Publication
+    Date**: [extracted date]\n**Content**: [full article text]\n\nIf any element couldn't
+    be extracted, note \"Not found\" but continue with available data."
+  agent: article_content_scraper
+  context:
+  - extract_article_urls
+
+extract_article_urls_2:
+  description: |-
+    Navigate to the news website main page at https://breakingdefense.com/ and extract exactly 3 REAL, EXISTING article URLs. You must:
+
+    1. **ACTUALLY SCRAPE** the website using the scraping tool - do not generate or fabricate URLs
+    2. **VERIFY** each URL leads to a real article by checking the scraped content
+    3. **EXTRACT** only URLs that appear in the actual website content (links, href attributes)
+    4. **VALIDATE** that URLs are complete and functional (include full domain)
+
+    **CRITICAL**: You must use the scraping tool to get the actual website content, then extract real article URLs from that content. DO NOT create hypothetical or example URLs.
+
+    Steps:
+    1. Scrape the homepage to get actual content
+    2. Look for article links in the scraped content (URLs containing /2024/, /2025/, /news/, etc.)
+    3. Extract exactly 3 real article URLs
+    4. Format as a simple list
+  expected_output: |-
+    A list of exactly 3 valid article URLs in the following format:
+    ```
+    1. https://example.com/article1
+    2. https://example.com/article2
+    3. https://example.com/article3
+    ```
+
+    Include a brief description of each article based on the link text or preview available on the main page.
+  agent: news_article_url_extractor_2
+
+scrape_article_contents_2:
+  description: "Using the article URLs provided from the previous task, access each
+    individual article and extract the complete content. **YOU MUST EXTRACT ALL 3
+    ARTICLES - DO NOT STOP AFTER THE FIRST ONE.**\n\nFor each of the 3 articles, extract:\n\n1.
+    **Article Title**: The main headline of the article\n2. **Publication Date**:
+    When the article was published (in any available format)  \n3. **Full Article
+    Content**: The complete text of the article body\n\n**CRITICAL REQUIREMENT**:
+    You must process ALL 3 URLs provided in the context. Do not stop after extracting
+    the first article. Continue to scrape all remaining URLs until you have extracted
+    content from all 3 articles.\n\nFor each article URL:\n1. Navigate to the article
+    page\n2. Identify and extract the main article title (usually in h1 tags or headline
+    sections)\n3. Find the publication date (look for date elements, timestamps, or
+    publish date indicators)\n4. Extract the full article content, ensuring you capture:\n
+    \  - All paragraphs of the main article body\n   - Exclude advertisements, comments,
+    related articles, and navigation\n   - Include all text content that is part of
+    the main article\n\nHandle different website layouts and structures gracefully.
+    If an element is not found for any article, note that in the output but continue
+    with the extraction of available elements from ALL articles."
+  expected_output: "A comprehensive report containing the extracted information for
+    all 3 articles in the following format:\n\n## Article 1\n**URL**: [article URL]\n**Title**:
+    [extracted title]\n**Publication Date**: [extracted date]\n**Content**: [full
+    article text]\n\n## Article 2\n**URL**: [article URL]  \n**Title**: [extracted
+    title]\n**Publication Date**: [extracted date]\n**Content**: [full article text]\n\n##
+    Article 3\n**URL**: [article URL]\n**Title**: [extracted title]\n**Publication
+    Date**: [extracted date]\n**Content**: [full article text]\n\nIf any element couldn't
+    be extracted, note \"Not found\" but continue with available data."
+  agent: article_content_scraper_2
+  context:
+  - extract_article_urls_2
+
+extract_article_urls_3:
+  description: |-
+    Navigate to the news website main page at https://www.shephardmedia.com/news/ and extract exactly 3 REAL, EXISTING article URLs. You must:
+
+    1. **ACTUALLY SCRAPE** the website using the scraping tool - do not generate or fabricate URLs
+    2. **VERIFY** each URL leads to a real article by checking the scraped content
+    3. **EXTRACT** only URLs that appear in the actual website content (links, href attributes)
+    4. **VALIDATE** that URLs are complete and functional (include full domain)
+
+    **CRITICAL**: You must use the scraping tool to get the actual website content, then extract real article URLs from that content. DO NOT create hypothetical or example URLs.
+  expected_output: |-
+    A list of exactly 3 valid article URLs in the following format:
+    ```
+    1. https://example.com/article1
+    2. https://example.com/article2
+    3. https://example.com/article3
+    ```
+
+    Include a brief description of each article based on the link text or preview available on the main page.
+  agent: news_article_url_extractor_3
+
+scrape_article_contents_3:
+  description: |-
+    Using the article URLs provided from the previous task, access each individual article and extract the complete content. **YOU MUST EXTRACT ALL 3 ARTICLES - DO NOT STOP AFTER THE FIRST ONE.**
+
+    **CRITICAL REQUIREMENT**: You must process ALL 3 URLs provided in the context. Do not stop after extracting the first article. Continue to scrape all remaining URLs until you have extracted content from all 3 articles.
+  expected_output: "A comprehensive report containing the extracted information for
+    all 3 articles in the following format:\n\n## Article 1\n**URL**: [article URL]\n**Title**:
+    [extracted title]\n**Publication Date**: [extracted date]\n**Content**: [full
+    article text]\n\n## Article 2\n**URL**: [article URL]  \n**Title**: [extracted
+    title]\n**Publication Date**: [extracted date]\n**Content**: [full article text]\n\n##
+    Article 3\n**URL**: [article URL]\n**Title**: [extracted title]\n**Publication
+    Date**: [extracted date]\n**Content**: [full article text]\n\nIf any element couldn't
+    be extracted, note \"Not found\" but continue with available data."
+  agent: article_content_scraper_3
+  context:
+  - extract_article_urls_3
+
+extract_article_urls_4:
+  description: Navigate to the news website main page at https://www.janes.com/osint-insights/defence-news and extract
+    exactly 3 REAL, EXISTING article URLs. You must use the scraping tool to get the
+    actual website content, then extract real article URLs from that content. DO NOT
+    create hypothetical or example URLs.
+  expected_output: A list of exactly 3 valid article URLs with brief descriptions.
+  agent: news_article_url_extractor_4
+
+scrape_article_contents_4:
+  description: Using the article URLs provided from the previous task, access each
+    individual article and extract the complete content. **YOU MUST EXTRACT ALL 3
+    ARTICLES - DO NOT STOP AFTER THE FIRST ONE.**
+  expected_output: A comprehensive report containing the extracted information for
+    all 3 articles with URL, title, publication date, and full content for each.
+  agent: article_content_scraper_4
+  context:
+  - extract_article_urls_4
+
 analyze_and_prioritize_top_7_articles:
-  description: 'Analyze all scraped defense news articles from all ten sources
-    (Defense News, Breaking Defense, Shephard Media, Janes, Aviation Week, Naval News,
-    Defence Industry Europe, National Defense, Defense One, The War Zone) and identify
-    the 7 most important and newsworthy articles. Evaluate articles based on: strategic significance,
-    breaking news value, geopolitical impact, defense industry relevance, policy implications,
-    and technological developments. Select the best 7 articles across all sources
-    regardless of which website they came from. Rank articles by importance and provide
-    justification for selections.'
-  expected_output: 'A ranked list of the top 7 most important defense news articles
-    with detailed analysis explaining why each article was selected. Include: article
-    ranking (1-7), source website, title, brief summary, importance score/reasoning,
-    strategic implications, and the original article URL for reference.'
+  description: 'Analyze all scraped defense news articles from all four sources
+    (Defense News, Breaking Defense, Shephard Media, Janes) and identify
+    the 7 most important and newsworthy articles. 
+    
+    **CRITICAL SELECTION CRITERIA**:
+    1. **RECENCY IS PARAMOUNT**: You MUST prioritize articles published within the last 48 hours (2 days) above all else.
+    2. Evaluate based on: strategic significance, breaking news value, geopolitical impact, defense industry relevance, policy implications, and technical developments.
+
+    Select the best 7 articles across all sources regardless of which website they came from. Rank articles by importance.
+    The input context includes full text articles scraped from each source.'
+  expected_output: 'A ranked list of the top 7 most important defense news articles. Include: article
+    ranking (1-7), source website, title and the original article URL for reference.'
   agent: defense_news_analyst
   context:
-  - scrape_defense_news_articles
+  - scrape_article_contents
+  - scrape_article_contents_2
+  - scrape_article_contents_3
+  - scrape_article_contents_4
 rewrite_articles_in_korean:
   description: >
     Take the 7 prioritized defense news articles and rewrite them completely
-    in Korean with maximum detail and accuracy. Base your writing strictly on the
-    original source material, expanding on technical details, strategic implications,
-    and contextual information found in the source articles.
+    in Korean. The goal is to provide a faithful and detailed representation of the
+    original article, ensuring that no important information is lost.
     
     FIRST, generate a "Today's Briefing" section at the very top.
-    This section must list the titles of all 7 articles cleanly.
+    This section must list the titles of all 7 articles cleanly. Strictly follow this format.
     Format:
     # <오늘의 주요 뉴스>
     01. [Korean Title of Article 1]
@@ -57,17 +206,18 @@ rewrite_articles_in_korean:
 
     THEN, for each article, structure the content as follows -
     1) Korean headline as the article title
-    2) A <배경> section providing essential background context such as geopolitical
-    situation, historical background, and relevant strategic frameworks. Do NOT
-    include terminology explanations or glossary-style definitions.
-    3) A <기사> section containing the full comprehensive Korean article text
-    with detailed coverage based on the original source.
-    4) End with Original Source showing only the source news outlet name, not the URL.
+    2) The Korean article text immediately follows the title.
+       **CRITICAL: Focus on the MOST IMPORTANT FACTS and CORE DETAILS.**
+       - You do not need to translate every single sentence. Instead, synthesize the key information.
+       - Include essential numbers, dates, names, and strategic implications.
+       - Omit minor details, repetitive information, or less relevant background that doesn't add value to the core story.
+       - Ensure the flow is logical and concise, delivering the main message effectively to a professional audience.
+       - Capture the tone and nuance of the original reporting.
+    3) End with Original Source showing only the source news outlet name, not the URL.
     For example - Original Source: Defense News  or  Original Source: Breaking Defense
     Ensure proper Korean military terminology throughout and maintain journalistic
     precision. Articles MUST be written in the formal "~다" style (plain form),
-    avoiding polite endings like "~습니다" or "~해요". Do not include any separate
-    terminology explanation sections.
+    avoiding polite endings like "~습니다" or "~해요".
     
     CRITICAL FORMATTING INSTRUCTIONS:
     - You MUST number the articles sequentially from 1 to 7. Do not restart numbering.
@@ -78,7 +228,7 @@ rewrite_articles_in_korean:
   expected_output: >
     The output MUST start with the summary list, followed by the 7 detailed articles.
     
-    Strictly follow this example structure:
+    Always strictly follow this example structure!:
 
     # <오늘의 주요 뉴스>
     01. [Title 1]
@@ -90,11 +240,7 @@ rewrite_articles_in_korean:
 
     ## 1. [Korean Title of Article 1]
 
-    <배경>
-    [Detailed background context...]
-
-    <기사>
-    [Detailed article content...]
+    [Concise and impact-focused article content, capturing key facts and strategic details...]
 
     Original Source: [Source Name]
 
@@ -105,10 +251,14 @@ rewrite_articles_in_korean:
 
     (Continue until ## 7.)
     
-    Each article should be substantially detailed, informative, and accessible
-    to Korean readers. 
+    Each article should be deeply informative and nearly a full translation of the
+    key points and details of the original, adapted for flow and readability.
 
-    Do not include terminology glossaries or definition lists.
+    **CRITICAL WARNING**:
+    - DO NOT FABRICATE INFORMATION.
+    - DO NOT ADD FACTS NOT PRESENT IN THE SOURCE.
+    - If a detail is missing, simply omit it rather than guessing.
+    - Stick strictly to the provided source content.
 
     CRITICAL FORMATTING FOR "Original Source":
     - Ensure there is a blank line BEFORE "Original Source".
@@ -121,4 +271,8 @@ rewrite_articles_in_korean:
       ---
   agent: korean_defense_content_writer
   context:
+  - scrape_article_contents
+  - scrape_article_contents_2
+  - scrape_article_contents_3
+  - scrape_article_contents_4
   - analyze_and_prioritize_top_7_articles

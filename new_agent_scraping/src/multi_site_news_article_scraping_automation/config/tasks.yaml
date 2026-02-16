@@ -1,0 +1,181 @@
+---
+extract_article_urls:
+  description: |-
+    Navigate to the news website main page at {news_website_url} and extract exactly 3 REAL, EXISTING article URLs. You must:
+
+    1. **ACTUALLY SCRAPE** the website using the scraping tool - do not generate or fabricate URLs
+    2. **VERIFY** each URL leads to a real article by checking the scraped content
+    3. **EXTRACT** only URLs that appear in the actual website content (links, href attributes)
+    4. **VALIDATE** that URLs are complete and functional (include full domain)
+
+    **CRITICAL**: You must use the scraping tool to get the actual website content, then extract real article URLs from that content. DO NOT create hypothetical or example URLs.
+
+    Steps:
+    1. Scrape the homepage to get actual content
+    2. Look for article links in the scraped content (URLs containing /2024/, /2025/, /news/, etc.)
+    3. Extract exactly 3 real article URLs
+    4. Format as a simple list
+  expected_output: |-
+    A list of exactly 3 valid article URLs in the following format:
+    ```
+    1. https://example.com/article1
+    2. https://example.com/article2
+    3. https://example.com/article3
+    ```
+
+    Include a brief description of each article based on the link text or preview available on the main page.
+  agent: news_article_url_extractor
+extract_article_urls_2:
+  description: |-
+    Navigate to the news website main page at {news_website_url2} and extract exactly 3 REAL, EXISTING article URLs. You must:
+
+    1. **ACTUALLY SCRAPE** the website using the scraping tool - do not generate or fabricate URLs
+    2. **VERIFY** each URL leads to a real article by checking the scraped content
+    3. **EXTRACT** only URLs that appear in the actual website content (links, href attributes)
+    4. **VALIDATE** that URLs are complete and functional (include full domain)
+
+    **CRITICAL**: You must use the scraping tool to get the actual website content, then extract real article URLs from that content. DO NOT create hypothetical or example URLs.
+
+    Steps:
+    1. Scrape the homepage to get actual content
+    2. Look for article links in the scraped content (URLs containing /2024/, /2025/, /news/, etc.)
+    3. Extract exactly 3 real article URLs
+    4. Format as a simple list
+  expected_output: |-
+    A list of exactly 3 valid article URLs in the following format:
+    ```
+    1. https://example.com/article1
+    2. https://example.com/article2
+    3. https://example.com/article3
+    ```
+
+    Include a brief description of each article based on the link text or preview available on the main page.
+  agent: news_article_url_extractor_2
+extract_article_urls_3:
+  description: |-
+    Navigate to the news website main page at {news_website_url3} and extract exactly 3 REAL, EXISTING article URLs. You must:
+
+    1. **ACTUALLY SCRAPE** the website using the scraping tool - do not generate or fabricate URLs
+    2. **VERIFY** each URL leads to a real article by checking the scraped content
+    3. **EXTRACT** only URLs that appear in the actual website content (links, href attributes)
+    4. **VALIDATE** that URLs are complete and functional (include full domain)
+
+    **CRITICAL**: You must use the scraping tool to get the actual website content, then extract real article URLs from that content. DO NOT create hypothetical or example URLs.
+  expected_output: |-
+    A list of exactly 3 valid article URLs in the following format:
+    ```
+    1. https://example.com/article1
+    2. https://example.com/article2
+    3. https://example.com/article3
+    ```
+
+    Include a brief description of each article based on the link text or preview available on the main page.
+  agent: news_article_url_extractor_3
+extract_article_urls_4:
+  description: Navigate to the news website main page at {news_website_url4} and extract
+    exactly 3 REAL, EXISTING article URLs. You must use the scraping tool to get the
+    actual website content, then extract real article URLs from that content. DO NOT
+    create hypothetical or example URLs.
+  expected_output: A list of exactly 3 valid article URLs with brief descriptions.
+  agent: news_article_url_extractor_4
+scrape_article_contents:
+  description: "Using the article URLs provided from the previous task, access each
+    individual article and extract the complete content. **YOU MUST EXTRACT ALL 3
+    ARTICLES - DO NOT STOP AFTER THE FIRST ONE.**\n\nFor each of the 3 articles, extract:\n\n1.
+    **Article Title**: The main headline of the article\n2. **Publication Date**:
+    When the article was published (in any available format)  \n3. **Full Article
+    Content**: The complete text of the article body\n\n**CRITICAL REQUIREMENT**:
+    You must process ALL 3 URLs provided in the context. Do not stop after extracting
+    the first article. Continue to scrape all remaining URLs until you have extracted
+    content from all 3 articles.\n\nFor each article URL:\n1. Navigate to the article
+    page\n2. Identify and extract the main article title (usually in h1 tags or headline
+    sections)\n3. Find the publication date (look for date elements, timestamps, or
+    publish date indicators)\n4. Extract the full article content, ensuring you capture:\n
+    \  - All paragraphs of the main article body\n   - Exclude advertisements, comments,
+    related articles, and navigation\n   - Include all text content that is part of
+    the main article\n\nHandle different website layouts and structures gracefully.
+    If an element is not found for any article, note that in the output but continue
+    with the extraction of available elements from ALL articles."
+  expected_output: "A comprehensive report containing the extracted information for
+    all 3 articles in the following format:\n\n## Article 1\n**URL**: [article URL]\n**Title**:
+    [extracted title]\n**Publication Date**: [extracted date]\n**Content**: [full
+    article text]\n\n## Article 2\n**URL**: [article URL]  \n**Title**: [extracted
+    title]\n**Publication Date**: [extracted date]\n**Content**: [full article text]\n\n##
+    Article 3\n**URL**: [article URL]\n**Title**: [extracted title]\n**Publication
+    Date**: [extracted date]\n**Content**: [full article text]\n\nIf any element couldn't
+    be extracted, note \"Not found\" but continue with available data."
+  agent: article_content_scraper
+  context:
+  - extract_article_urls
+scrape_article_contents_2:
+  description: "Using the article URLs provided from the previous task, access each
+    individual article and extract the complete content. **YOU MUST EXTRACT ALL 3
+    ARTICLES - DO NOT STOP AFTER THE FIRST ONE.**\n\nFor each of the 3 articles, extract:\n\n1.
+    **Article Title**: The main headline of the article\n2. **Publication Date**:
+    When the article was published (in any available format)  \n3. **Full Article
+    Content**: The complete text of the article body\n\n**CRITICAL REQUIREMENT**:
+    You must process ALL 3 URLs provided in the context. Do not stop after extracting
+    the first article. Continue to scrape all remaining URLs until you have extracted
+    content from all 3 articles.\n\nFor each article URL:\n1. Navigate to the article
+    page\n2. Identify and extract the main article title (usually in h1 tags or headline
+    sections)\n3. Find the publication date (look for date elements, timestamps, or
+    publish date indicators)\n4. Extract the full article content, ensuring you capture:\n
+    \  - All paragraphs of the main article body\n   - Exclude advertisements, comments,
+    related articles, and navigation\n   - Include all text content that is part of
+    the main article\n\nHandle different website layouts and structures gracefully.
+    If an element is not found for any article, note that in the output but continue
+    with the extraction of available elements from ALL articles."
+  expected_output: "A comprehensive report containing the extracted information for
+    all 3 articles in the following format:\n\n## Article 1\n**URL**: [article URL]\n**Title**:
+    [extracted title]\n**Publication Date**: [extracted date]\n**Content**: [full
+    article text]\n\n## Article 2\n**URL**: [article URL]  \n**Title**: [extracted
+    title]\n**Publication Date**: [extracted date]\n**Content**: [full article text]\n\n##
+    Article 3\n**URL**: [article URL]\n**Title**: [extracted title]\n**Publication
+    Date**: [extracted date]\n**Content**: [full article text]\n\nIf any element couldn't
+    be extracted, note \"Not found\" but continue with available data."
+  agent: article_content_scraper_2
+  context:
+  - extract_article_urls_2
+scrape_article_contents_3:
+  description: |-
+    Using the article URLs provided from the previous task, access each individual article and extract the complete content. **YOU MUST EXTRACT ALL 3 ARTICLES - DO NOT STOP AFTER THE FIRST ONE.**
+
+    **CRITICAL REQUIREMENT**: You must process ALL 3 URLs provided in the context. Do not stop after extracting the first article. Continue to scrape all remaining URLs until you have extracted content from all 3 articles.
+  expected_output: "A comprehensive report containing the extracted information for
+    all 3 articles in the following format:\n\n## Article 1\n**URL**: [article URL]\n**Title**:
+    [extracted title]\n**Publication Date**: [extracted date]\n**Content**: [full
+    article text]\n\n## Article 2\n**URL**: [article URL]  \n**Title**: [extracted
+    title]\n**Publication Date**: [extracted date]\n**Content**: [full article text]\n\n##
+    Article 3\n**URL**: [article URL]\n**Title**: [extracted title]\n**Publication
+    Date**: [extracted date]\n**Content**: [full article text]\n\nIf any element couldn't
+    be extracted, note \"Not found\" but continue with available data."
+  agent: article_content_scraper_3
+  context:
+  - extract_article_urls_3
+scrape_article_contents_4:
+  description: Using the article URLs provided from the previous task, access each
+    individual article and extract the complete content. **YOU MUST EXTRACT ALL 3
+    ARTICLES - DO NOT STOP AFTER THE FIRST ONE.**
+  expected_output: A comprehensive report containing the extracted information for
+    all 3 articles with URL, title, publication date, and full content for each.
+  agent: article_content_scraper_4
+  context:
+  - extract_article_urls_4
+final_output:
+  description: |-
+    Output all scraped article content from the 4 different news websites without any summarization or analysis. Simply present all 12 articles with their complete content exactly as scraped.
+
+    **CRITICAL**: Do not summarize, analyze, or modify the content. Just output all article content in a clean, readable format.
+  expected_output: "All 12 articles with complete content from the 4 news websites:\n\n**DEFENSE
+    NEWS (3 articles)**\n[Complete article content from Defense News]\n\n**AVIATION
+    WEEK (3 articles)** \n[Complete article content from Aviation Week]\n\n**JANES
+    (3 articles)**\n[Complete article content from Janes]\n\n**BREAKING DEFENSE (3
+    articles)**\n[Complete article content from Breaking Defense]\n\nOutput each article
+    with:\n- Title\n- Publication Date\n- URL\n- Full Article Content (complete text
+    as scraped)"
+  agent: article_content_scraper
+  context:
+  - scrape_article_contents
+  - scrape_article_contents_2
+  - scrape_article_contents_3
+  - scrape_article_contents_4

@@ -20,6 +20,7 @@ bcrypt==5.0.0
 beautifulsoup4==4.13.5
 billiard==4.2.4
 bleach==6.3.0
+browserbase==1.4.0
 build==1.4.0
 cachetools==7.0.1
 celery==5.6.2
@@ -62,6 +63,7 @@ fsspec==2026.2.0
 gitdb==4.0.12
 GitPython==3.1.45
 googleapis-common-protos==1.72.0
+greenlet==3.3.1
 grpcio==1.78.0
 gunicorn==25.1.0
 h11==0.16.0
@@ -144,6 +146,7 @@ pdfplumber==0.11.9
 pexpect==4.9.0
 pillow==12.1.1
 platformdirs==4.5.0
+playwright==1.58.0
 portalocker==2.7.0
 posthog==5.4.0
 pre_commit==4.5.1
@@ -162,6 +165,7 @@ pycparser==2.23
 pydantic==2.11.10
 pydantic-settings==2.10.1
 pydantic_core==2.33.2
+pyee==13.0.1
 Pygments==2.19.2
 PyJWT==2.11.0
 pylance==0.9.18
@@ -202,6 +206,7 @@ soupsieve==2.8
 sqlparse==0.5.5
 sse-starlette==3.2.0
 stack-data==0.6.3
+stagehand-py==0.3.10
 starlette==0.52.1
 sympy==1.14.0
 tenacity==9.1.4
